@@ -21,8 +21,10 @@ uploadRoute.post(
         for (const { data } of uploadedFiles) {
             const name = data.name
                 .replace(/[^a-zA-Z0-9_.]/g, '_')
+                .replace(/^\./g, '_')
                 .replace(/_+/g, '_')
                 .toLowerCase()
+
             await data.mv(`${config.uploadDest}/${name}`)
             results.files[data.name] = `${config.uploadUrl}/${name}`
         }
